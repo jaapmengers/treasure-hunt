@@ -19,8 +19,17 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 
-@Component
-export default class Map extends Vue {
-
-}
+@Component({
+  data() {
+    return {
+      markers: [{
+        position: {
+          lat: 51.966652,
+          lng: 6.567067,
+        },
+      }],
+    };
+  },
+})
+export default class Map extends Vue { }
 </script>

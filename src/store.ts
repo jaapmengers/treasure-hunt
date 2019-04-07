@@ -1,13 +1,13 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import { checkIfLocationPermissionGranted, requestLocationPermission } from './utils';
+import { RootState } from './types';
 
 Vue.use(Vuex);
 
-export default new Vuex.Store({
+export default new Vuex.Store<RootState>({
   state: {
     hasGrantedPermission: false,
-
   },
   mutations: {
     setPermissionState(state, permissionGranted) {
