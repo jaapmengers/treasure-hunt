@@ -9,11 +9,14 @@ Vue.config.productionTip = false;
 Vue.use(VueGoogleMaps, {
   load: {
     key: 'AIzaSyCBrMcezpc02EZI8GRaRTwqF9p0EbHIGXo',
-  }
+  },
 });
 
 new Vue({
   router,
   store,
   render: (h) => h(App),
+  created() {
+    store.dispatch('checkForLocationPermission');
+  },
 }).$mount('#app');
