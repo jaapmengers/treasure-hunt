@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+rm -rf /tmp/treasure-hunt-dist
+
 vue-cli-service build --dest /tmp/treasure-hunt-dist
 
 cd /tmp/treasure-hunt-dist
@@ -14,3 +16,4 @@ git add .
 
 git commit -am "Deployment"
 git push -u
+
