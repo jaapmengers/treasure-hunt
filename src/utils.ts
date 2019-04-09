@@ -4,8 +4,17 @@ export async function checkIfLocationPermissionGranted(): Promise<boolean> {
     return false;
   }
 
-  const result = await navigator.permissions.query({ name: 'geolocation' });
-  return result.state === 'granted';
+  if (!!navigator.permissions) {
+    const result = await navigator.permissions.query({ name: 'geolocation' });
+    return result.state === 'granted';
+  }
+
+  try {
+    await requestLocationPermission();
+    return true;
+  } catch {
+    return false;
+  }
 }
 
 export async function requestLocationPermission(): Promise<void> {

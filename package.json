@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "deploy": "./deploy.sh",
+    "deploy": "vue-cli-service build --dest /tmp/treasure-hunt-dist && ./deploy.sh",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
