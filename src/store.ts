@@ -7,15 +7,25 @@ Vue.use(Vuex);
 
 export default new Vuex.Store<RootState>({
   state: {
-    hasGrantedPermission: false,
+    permissions: {
+      loading: false,
+      hasGrantedPermission: false,
+    },
   },
   mutations: {
+    permissionStateIsLoading(state) {
+      state.permissions.loading = true;
+    },
     setPermissionState(state, permissionGranted) {
-      state.hasGrantedPermission = permissionGranted;
+      state.permissions = {
+        loading: false,
+        hasGrantedPermission: permissionGranted,
+      };
     },
   },
   actions: {
     async checkForLocationPermission(context) {
+      context.commit('permissionStateIsLoading');
       const result = await checkIfLocationPermissionGranted();
 
       context.commit('setPermissionState', result);

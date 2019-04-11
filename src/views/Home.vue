@@ -1,6 +1,9 @@
 <template>
-  <Onboarding v-if="!hasGrantedPermission" />
-  <Map v-else />
+  <div v-if="permissions.loading">
+    Loading...
+  </div>
+  <Map v-else-if="permissions.hasGrantedPermission" />
+  <Onboarding v-else />
   <!-- <a href="https://wa.me/31654237212?text=Hallo dit is m'n bericht">Stuur bericht</a> -->
 </template>
 
@@ -15,9 +18,11 @@ import { mapState } from 'vuex';
     Map,
     Onboarding,
   },
-  computed: mapState([
-    'hasGrantedPermission',
-  ]),
+  computed: {
+    permissions() {
+      return this.$store.state.permissions;
+    },
+  },
 })
 export default class Home extends Vue { }
 </script>

@@ -1,3 +1,6 @@
 export interface RootState {
-  hasGrantedPermission: boolean;
+  permissions: {
+    loading: boolean,
+    hasGrantedPermission: boolean,
+  };
 }

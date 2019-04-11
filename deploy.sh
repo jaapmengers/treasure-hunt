@@ -16,7 +16,7 @@ git fetch
 
 git branch -u origin/gh-pages
 
-git pull --no-edit
+git pull --no-edit -s ours
 
 git push -u
 
