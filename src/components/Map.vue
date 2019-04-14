@@ -3,6 +3,7 @@
     :center="{lat:52.362168, lng: 4.855505}"
     :zoom="15"
     map-type-id="terrain"
+    :options="mapOptions"
     style="width: 100%; height: 100%"
   >
     <GmapMarker
@@ -37,6 +38,13 @@ import { RootState } from '../types';
       }];
     },
   }),
+  data() {
+    return {
+      mapOptions: {
+        disableDefaultUI: true
+      }
+    }
+  }
 })
 export default class Map extends Vue { }
 </script>
