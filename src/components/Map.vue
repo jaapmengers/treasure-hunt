@@ -23,16 +23,17 @@ import { RootState } from '../types';
 
 @Component({
   computed: mapState<RootState>({
-    markers: state => {
-      if(state.lastKnownLocation == null)
+    markers: (state) => {
+      if (state.lastKnownLocation == null) {
         return;
+      }
 
       const { latitude, longitude } = state.lastKnownLocation.coords;
-      return [{ 
+      return [{
         position: {
           lat: latitude,
           lng: longitude,
-        } 
+        },
       }];
     },
   }),
