@@ -7,12 +7,16 @@ Vue.use(Vuex);
 
 export default new Vuex.Store<RootState>({
   state: {
+    lastKnownLocation: null,
     permissions: {
       loading: false,
       hasGrantedPermission: false,
     },
   },
   mutations: {
+    setLastKnownLocation(state, lastKnownLocation: Position) {
+      state.lastKnownLocation = lastKnownLocation;
+    },
     permissionStateIsLoading(state) {
       state.permissions.loading = true;
     },

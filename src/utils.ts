@@ -22,7 +22,16 @@ export async function requestLocationPermission(): Promise<void> {
     return;
   }
 
+  await getCurrentLocation();
+  return;
+}
+
+export async function getCurrentLocation(): Promise<Position> {
   return new Promise((resolve, reject) => {
-    navigator.geolocation.getCurrentPosition(() => resolve(), () => reject());
+    navigator.geolocation.getCurrentPosition((position: Position) => {
+      resolve(position);
+    }, (err: PositionError) => {
+      reject(err);
+    });
   });
 }

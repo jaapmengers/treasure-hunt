@@ -3,6 +3,7 @@ import App from './App.vue';
 import router from './router';
 import store from './store';
 import * as VueGoogleMaps from 'vue2-google-maps';
+import LocationWatcher from './locationwatcher';
 
 Vue.config.productionTip = false;
 
@@ -20,3 +21,5 @@ new Vue({
     store.dispatch('checkForLocationPermission');
   },
 }).$mount('#app');
+
+new LocationWatcher(store).watchForLocationChanges(1000);

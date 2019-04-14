@@ -1,6 +1,6 @@
 <template>
   <GmapMap
-    :center="{lat:51.966652, lng: 6.567067}"
+    :center="{lat:52.362168, lng: 4.855505}"
     :zoom="15"
     map-type-id="terrain"
     style="width: 100%; height: 100%"
@@ -18,18 +18,24 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
+import { mapState } from 'vuex';
+import { RootState } from '../types';
 
 @Component({
-  data() {
-    return {
-      markers: [{
+  computed: mapState<RootState>({
+    markers: state => {
+      if(state.lastKnownLocation == null)
+        return;
+
+      const { latitude, longitude } = state.lastKnownLocation.coords;
+      return [{ 
         position: {
-          lat: 51.966652,
-          lng: 6.567067,
-        },
-      }],
-    };
-  },
+          lat: latitude,
+          lng: longitude,
+        } 
+      }];
+    },
+  }),
 })
 export default class Map extends Vue { }
 </script>
