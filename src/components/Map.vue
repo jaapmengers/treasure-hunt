@@ -3,13 +3,16 @@
     :center="{lat:52.362168, lng: 4.855505}"
     :zoom="15"
     map-type-id="terrain"
-    :options="mapOptions"
+    :options="{
+      disableDefaultUI: true
+    }"
     style="width: 100%; height: 100%"
   >
     <GmapMarker
       :key="index"
       v-for="(m, index) in markers"
       :position="m.position"
+      :icon="m.icon"
       :clickable="true"
       :draggable="true"
       @click="center=m.position"
@@ -20,7 +23,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import { mapState } from 'vuex';
-import { RootState } from '../types';
+import { RootState, Marker } from '../types';
 
 @Component({
   computed: mapState<RootState>({
@@ -30,21 +33,21 @@ import { RootState } from '../types';
       }
 
       const { latitude, longitude } = state.lastKnownLocation.coords;
-      return [{
+      const markers: Marker[] = state.markers.map((x) => {
+        return Object.assign({}, x, { icon: { url: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png' }});
+      });
+
+      const yourLocation: Marker[] = [{
+        title: 'Your location',
         position: {
           lat: latitude,
           lng: longitude,
         },
       }];
+
+      return markers.concat(yourLocation);
     },
   }),
-  data() {
-    return {
-      mapOptions: {
-        disableDefaultUI: true
-      }
-    }
-  }
 })
 export default class Map extends Vue { }
 </script>
