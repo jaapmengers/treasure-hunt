@@ -4,6 +4,7 @@ import router from './router';
 import store from './store';
 import * as VueGoogleMaps from 'vue2-google-maps';
 import LocationWatcher from './locationwatcher';
+import './registerServiceWorker';
 
 Vue.config.productionTip = false;
 
