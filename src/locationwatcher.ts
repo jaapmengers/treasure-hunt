@@ -14,6 +14,7 @@ export default class LocationWatcher<T> {
       try {
         const location = await getCurrentLocation();
         this.store.commit('setLastKnownLocation', location);
+        this.store.dispatch('unlockNearbyLocations', location);
       } catch {
         // do nothing for now
       }

@@ -12,7 +12,7 @@
       :key="index"
       v-for="(m, index) in markers"
       :position="m.position"
-      :icon="m.icon"
+      :icon="m.icon()"
       :clickable="true"
       :draggable="true"
       @click="center=m.position"
@@ -23,7 +23,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import { mapState } from 'vuex';
-import { RootState, Marker } from '../types';
+import { RootState, Marker, UserLocation, IHasPosition } from '../types';
 
 @Component({
   computed: mapState<RootState>({
@@ -33,17 +33,8 @@ import { RootState, Marker } from '../types';
       }
 
       const { latitude, longitude } = state.lastKnownLocation.coords;
-      const markers: Marker[] = state.markers.map((x) => {
-        return Object.assign({}, x, { icon: { url: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png' }});
-      });
-
-      const yourLocation: Marker[] = [{
-        title: 'Your location',
-        position: {
-          lat: latitude,
-          lng: longitude,
-        },
-      }];
+      const markers: IHasPosition[] = state.markers;
+      const yourLocation: IHasPosition[] = [new UserLocation(latitude, longitude)];
 
       return markers.concat(yourLocation);
     },

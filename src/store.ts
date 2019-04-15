@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import { checkIfLocationPermissionGranted, requestLocationPermission } from './utils';
-import { RootState } from './types';
+import { checkIfLocationPermissionGranted, requestLocationPermission, distance } from './utils';
+import { RootState, Marker } from './types';
 
 Vue.use(Vuex);
 
@@ -9,48 +9,12 @@ export default new Vuex.Store<RootState>({
   state: {
     lastKnownLocation: null,
     markers: [
-      {
-        title: 'Rembrandtpark',
-        position: {
-          lat: 52.365499,
-          lng: 4.845244,
-        },
-      },
-      {
-        title: 'Albert Heijn',
-        position: {
-          lat: 52.364247,
-          lng: 4.854836,
-        },
-      },
-      {
-        title: 'Edel',
-        position: {
-          lat: 52.364339,
-          lng: 4.858634,
-        },
-      },
-      {
-        title: 'Moskee',
-        position: {
-          lat: 52.365977,
-          lng: 4.860608,
-        },
-      },
-      {
-        title: 'Edel',
-        position: {
-          lat: 52.36295,
-          lng: 4.862153,
-        },
-      },
-      {
-        title: 'Jumbo',
-        position: {
-          lat: 52.358757,
-          lng: 4.854964,
-        },
-      },
+      new Marker('Rembrandtpark', 52.365499, 4.845244),
+      new Marker('Albert Heijn', 52.364247, 4.854836),
+      new Marker('Edel', 52.364339, 4.858634),
+      new Marker('Moskee', 52.365977, 4.86060),
+      new Marker('Edel', 52.36295, 4.862153),
+      new Marker('Jumbo', 52.358757, 4.854964),
     ],
     permissions: {
       loading: false,
@@ -58,6 +22,15 @@ export default new Vuex.Store<RootState>({
     },
   },
   mutations: {
+    unlockMarker(state, markerTitle: string) {
+      const index = state.markers.findIndex((x) => x.title === markerTitle);
+
+      if (index < 0) {
+        return;
+      }
+
+      Vue.set(state.markers, index, state.markers[index].unlock());
+    },
     setLastKnownLocation(state, lastKnownLocation: Position) {
       state.lastKnownLocation = lastKnownLocation;
     },
@@ -72,6 +45,17 @@ export default new Vuex.Store<RootState>({
     },
   },
   actions: {
+    async unlockNearbyLocations(context, lastKnownLocation: Position) {
+      const { latitude, longitude } = lastKnownLocation.coords;
+
+      const shouldBeUnlocked = (x: Marker) => {
+        const closeEnough = distance(x.position.lat, x.position.lng, latitude, longitude) <= 50;
+        return closeEnough && x.locked;
+      };
+
+      const toBeUnLocked = context.state.markers.filter(shouldBeUnlocked);
+      toBeUnLocked.forEach((x) => context.commit('unlockMarker', x.title));
+    },
     async checkForLocationPermission(context) {
       context.commit('permissionStateIsLoading');
       const result = await checkIfLocationPermissionGranted();
