@@ -34,8 +34,8 @@ export class Marker implements IHasPosition {
 
   public icon() {
     const url = this.locked ?
-    'http://maps.google.com/mapfiles/ms/icons/red-dot.png' :
-    'http://maps.google.com/mapfiles/ms/icons/green-dot.png';
+    'https://maps.google.com/mapfiles/ms/icons/red-dot.png' :
+    'https://maps.google.com/mapfiles/ms/icons/green-dot.png';
 
     return { url };
   }
