@@ -1,9 +1,7 @@
 <template>
-  <transition>
-    <div v-on:click="dismiss()">
-      <h1>Hallo met Jaap?</h1>
-    </div>
-  </transition>
+  <div v-on:click="dismiss()">
+    <h1>Hallo met Jaap?</h1>
+  </div>
 </template>
 
 <script lang="ts">
