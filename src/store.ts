@@ -13,7 +13,7 @@ export default new Vuex.Store<RootState>({
       new Marker('Albert Heijn', 52.364247, 4.854836),
       new Marker('Edel', 52.364339, 4.858634),
       new Marker('Moskee', 52.365977, 4.86060),
-      new Marker('Edel', 52.36295, 4.862153),
+      new Marker('Lennep', 52.36295, 4.862153),
       new Marker('Jumbo', 52.358757, 4.854964),
     ],
     permissions: {
@@ -69,5 +69,8 @@ export default new Vuex.Store<RootState>({
         context.dispatch('checkForLocationPermission');
       }
     },
+    openQuestion(context, title: string) {
+      console.log(title);
+    }
   },
 });

@@ -15,7 +15,7 @@
       :icon="m.icon()"
       :clickable="true"
       :draggable="true"
-      @click="center=m.position"
+      @click="didClick(m)"
     />
   </GmapMap>
 </template>
@@ -39,6 +39,11 @@ import { RootState, Marker, UserLocation, IHasPosition } from '../types';
       return markers.concat(yourLocation);
     },
   }),
+  methods: {
+    didClick(marker: Marker) {
+      this.$store.dispatch('openQuestion', marker.title);
+    }
+  }
 })
 export default class Map extends Vue { }
 </script>
