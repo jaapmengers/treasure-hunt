@@ -1,10 +1,12 @@
 <template>
-  <div v-if="permissions.loading">
-    Loading...
+  <div id="container">
+    <div v-if="permissions.loading">
+      Loading...
+    </div>
+    <Map v-else-if="permissions.hasGrantedPermission" />
+    <Onboarding v-else />
+    <router-view></router-view>
   </div>
-  <Map v-else-if="permissions.hasGrantedPermission" />
-  <Onboarding v-else />
-  <!-- <a href="https://wa.me/31654237212?text=Hallo dit is m'n bericht">Stuur bericht</a> -->
 </template>
 
 <script lang="ts">
@@ -26,3 +28,11 @@ import { mapState } from 'vuex';
 })
 export default class Home extends Vue { }
 </script>
+
+<style scoped>
+#container {
+  width: 100%;
+  height: 100%;
+}
+</style>
+

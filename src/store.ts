@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import { checkIfLocationPermissionGranted, requestLocationPermission, distance } from './utils';
 import { RootState, Marker } from './types';
+import router from './router';
 
 Vue.use(Vuex);
 
@@ -70,7 +71,10 @@ export default new Vuex.Store<RootState>({
       }
     },
     openQuestion(context, title: string) {
-      console.log(title);
-    }
+      router.push('vraag');
+    },
+    dismissQuestion(context) {
+      router.go(-1);
+    },
   },
 });

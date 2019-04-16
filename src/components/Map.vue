@@ -42,8 +42,8 @@ import { RootState, Marker, UserLocation, IHasPosition } from '../types';
   methods: {
     didClick(marker: Marker) {
       this.$store.dispatch('openQuestion', marker.title);
-    }
-  }
+    },
+  },
 })
 export default class Map extends Vue { }
 </script>
