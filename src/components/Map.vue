@@ -26,7 +26,7 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import { mapState } from 'vuex';
 import { RootState, Marker, UserLocation, IHasPosition } from '../types';
-import { gmapApi } from 'vue2-google-maps'
+import { gmapApi } from 'vue2-google-maps';
 
 declare var google: any;
 
@@ -52,17 +52,17 @@ declare var google: any;
   data() {
     return {
       icon: {
-        path: "M22-48h-44v43h16l6 5 6-5h16z",
+        path: 'M22-48h-44v43h16l6 5 6-5h16z',
         fillColor: '#FF0000',
         fillOpacity: 1,
-        anchor: new google.maps.Point(0,0),
+        anchor: new google.maps.Point(0, 0),
         strokeWeight: 1,
         scale: 1,
         size: new google.maps.Point(10, 10),
         labelOrigin: new google.maps.Point(1, -25),
-      }
-    }
-  }
+      },
+    };
+  },
 })
 export default class Map extends Vue { }
 </script>
