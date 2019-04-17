@@ -16,7 +16,7 @@ git fetch
 
 git branch -u origin/gh-pages
 
-git pull --no-edit -s ours
+git pull --allow-unrelated-histories --no-edit -s ours
 
 git push -u
 
