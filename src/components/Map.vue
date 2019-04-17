@@ -4,7 +4,8 @@
     :zoom="15"
     map-type-id="terrain"
     :options="{
-      disableDefaultUI: true
+      disableDefaultUI: true,
+      clickableIcons: false
     }"
     style="width: 100%; height: 100%"
   >

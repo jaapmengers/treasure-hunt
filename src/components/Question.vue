@@ -1,7 +1,16 @@
 <template>
-  <div v-on:click="dismiss()">
-    <h1>Hallo met Jaap?</h1>
-  </div>
+  <main>
+    <div id="content">
+      <div id="header">
+        <h1>Vraag 1.</h1>
+        <i class="fas fa-times" v-on:click="dismiss()"></i>
+      </div>
+
+      <p>
+        Hallo?
+      </p>
+    </div>
+  </main>
 </template>
 
 <script lang="ts">
@@ -19,12 +28,30 @@ export default class Question extends Vue { }
 </script>
 
 <style scoped>
-  div {
+  main {
     background-color: white;
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
+  }
+
+  #content {
+    margin: 0px 20px;
+  }
+
+  #content > p {
+    font-size: 1.2em;
+  }
+
+  #header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  #header i {
+    font-size: 2em;
   }
 </style>

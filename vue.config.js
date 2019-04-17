@@ -4,6 +4,7 @@ module.exports = {
     disableHostCheck: true
   },
   configureWebpack: {
+    devtool: 'source-map',
     output: {
       filename: '[name].[hash].js'
     }
