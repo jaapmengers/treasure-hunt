@@ -5,7 +5,6 @@ import store from './store';
 import * as VueGoogleMaps from 'vue2-google-maps';
 import LocationWatcher from './locationwatcher';
 import './registerServiceWorker';
-import * as Shake from 'shake.js';
 
 Vue.config.productionTip = false;
 
@@ -31,12 +30,3 @@ window.onerror = function myErrorHandler(errorMsg, url, lineNumber) {
   alert('Error occured: ' + errorMsg);
   return false;
 };
-
-window.addEventListener('shake', shakeEventDidOccur, false);
-
-//function to call when shake occurs
-function shakeEventDidOccur () {
-
-    //put your own code here etc.
-    alert('shake!');
-}
