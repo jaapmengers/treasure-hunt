@@ -80,7 +80,8 @@ export default new Vuex.Store<RootState>({
       router.push('settings');
     },
     restoreGameState(context, encodedGameState: string) {
-      const toBeUnLocked = atob(encodedGameState)
+      const toBeUnLocked = parseInt(atob(encodedGameState), 10)
+        .toString(2)
         .split('')
         .map((x) => Boolean(parseInt(x, 2)))
         // Reverse because we save as a bit array
