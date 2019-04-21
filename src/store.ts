@@ -10,12 +10,12 @@ export default new Vuex.Store<RootState>({
   state: {
     lastKnownLocation: null,
     markers: [
-      new Marker('Rembrandtpark', 52.365499, 4.845244),
-      new Marker('Albert Heijn', 52.364247, 4.854836),
-      new Marker('Edel', 52.364339, 4.858634),
-      new Marker('Moskee', 52.365977, 4.86060),
-      new Marker('Lennep', 52.36295, 4.862153),
-      new Marker('Jumbo', 52.358757, 4.854964),
+      new Marker(1, 'Rembrandtpark', 52.365499, 4.845244),
+      new Marker(2, 'Albert Heijn', 52.364247, 4.854836),
+      new Marker(3, 'Edel', 52.364339, 4.858634),
+      new Marker(4, 'Moskee', 52.365977, 4.86060),
+      new Marker(5, 'Lennep', 52.36295, 4.862153),
+      new Marker(6, 'Jumbo', 52.358757, 4.854964),
     ],
     permissions: {
       loading: false,

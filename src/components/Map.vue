@@ -13,8 +13,8 @@
       :key="index"
       v-for="(m, index) in markers"
       :position="m.position"
-      :icon="icon"
-      :label="{'text': '31'}"
+      :icon="m.icon()"
+      :label="m.label()"
       :clickable="true"
       :draggable="true"
       @click="didClick(m)"
@@ -26,9 +26,6 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import { mapState } from 'vuex';
 import { RootState, Marker, UserLocation, IHasPosition } from '../types';
-import { gmapApi } from 'vue2-google-maps';
-
-declare var google: any;
 
 @Component({
   computed: mapState<RootState>({
@@ -48,20 +45,6 @@ declare var google: any;
     didClick(marker: Marker) {
       this.$store.dispatch('openQuestion', marker.title);
     },
-  },
-  data() {
-    return {
-      icon: {
-        path: 'M22-48h-44v43h16l6 5 6-5h16z',
-        fillColor: '#FF0000',
-        fillOpacity: 1,
-        anchor: new google.maps.Point(0, 0),
-        strokeWeight: 1,
-        scale: 1,
-        size: new google.maps.Point(10, 10),
-        labelOrigin: new google.maps.Point(1, -25),
-      },
-    };
   },
 })
 export default class Map extends Vue { }

@@ -3,7 +3,8 @@ export interface IHasPosition {
     lat: number;
     lng: number;
   };
-  icon: () => { url: string } | null;
+  icon: () => any | null;
+  label: () => { text: string } | null;
 }
 
 export class UserLocation implements IHasPosition {
@@ -13,31 +14,50 @@ export class UserLocation implements IHasPosition {
     this.position = { lat, lng };
   }
 
-  public icon() { return null; }
+  public icon() {
+    return null;
+  }
+
+  public label() {
+    return null;
+  }
 }
+
+declare var google: any;
 
 // tslint:disable-next-line: max-classes-per-file
 export class Marker implements IHasPosition {
+  public index: number;
   public title: string;
   public locked: boolean;
   public position: { lat: number; lng: number; };
 
-  constructor(title: string, lat: number, lng: number, locked: boolean = true) {
+  constructor(index: number, title: string, lat: number, lng: number, locked: boolean = true) {
+    this.index = index;
     this.title = title;
     this.locked = locked;
     this.position = { lat, lng };
   }
 
   public unlock() {
-    return new Marker(this.title, this.position.lat, this.position.lng, false);
+    return new Marker(this.index, this.title, this.position.lat, this.position.lng, false);
   }
 
   public icon() {
-    const url = this.locked ?
-    'https://maps.google.com/mapfiles/ms/icons/red-dot.png' :
-    'https://maps.google.com/mapfiles/ms/icons/green-dot.png';
+    return {
+        path: 'M22-48h-44v43h16l6 5 6-5h16z',
+        fillColor: this.locked ? '#f6f6f6' : '#42b983',
+        fillOpacity: 1,
+        anchor: new google.maps.Point(0, 0),
+        strokeWeight: 1,
+        strokeColor: this.locked ? '#7f8c8d' : '#2c3e50',
+        scale: 1,
+        labelOrigin: new google.maps.Point(1, -25),
+    };
+  }
 
-    return { url };
+  public label() {
+    return { text: `${this.index}.`, color: this.locked ? '#7f8c8d' : '#2c3e50' };
   }
 }
 
