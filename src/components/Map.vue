@@ -15,8 +15,8 @@
       :position="m.position"
       :icon="m.icon()"
       :label="m.label()"
-      :clickable="true"
-      :draggable="true"
+      :clickable="m.clickable"
+      :draggable="false"
       @click="didClick(m)"
     />
   </GmapMap>

@@ -5,10 +5,12 @@ export interface IHasPosition {
   };
   icon: () => any | null;
   label: () => { text: string } | null;
+  clickable: boolean;
 }
 
 export class UserLocation implements IHasPosition {
   public position: { lat: number; lng: number; };
+  public clickable = false;
 
   constructor(lat: number, lng: number) {
     this.position = { lat, lng };
@@ -17,7 +19,7 @@ export class UserLocation implements IHasPosition {
   public icon() {
     return {
       url: '/img/current-location.png',
-      scaledSize: new google.maps.Size(50, 50), // scaled size
+      scaledSize: new google.maps.Size(50, 50),
     };
   }
 
@@ -34,6 +36,7 @@ export class Marker implements IHasPosition {
   public title: string;
   public locked: boolean;
   public position: { lat: number; lng: number; };
+  public clickable = true;
 
   constructor(index: number, title: string, lat: number, lng: number, locked: boolean = true) {
     this.index = index;
