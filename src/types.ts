@@ -37,20 +37,20 @@ declare var google: any;
 
 // tslint:disable-next-line: max-classes-per-file
 export class Marker implements IHasPosition {
-  public index: number;
+  public questionnr: string;
   public title: string;
   public locked: boolean;
   public position: { lat: number; lng: number; };
 
-  constructor(index: number, title: string, lat: number, lng: number, locked: boolean = true) {
-    this.index = index;
+  constructor(questionnr: string, title: string, lat: number, lng: number, locked: boolean = true) {
+    this.questionnr = questionnr;
     this.title = title;
     this.locked = locked;
     this.position = { lat, lng };
   }
 
   public unlock() {
-    return new Marker(this.index, this.title, this.position.lat, this.position.lng, false);
+    return new Marker(this.questionnr, this.title, this.position.lat, this.position.lng, false);
   }
 
   public icon() {
@@ -67,7 +67,7 @@ export class Marker implements IHasPosition {
   }
 
   public label() {
-    return { text: `${this.index}.`, color: this.locked ? '#7f8c8d' : '#2c3e50' };
+    return { text: `${this.questionnr}.`, color: this.locked ? '#7f8c8d' : '#2c3e50' };
   }
 
   public didClick(store: Store<RootState>) {
@@ -75,7 +75,7 @@ export class Marker implements IHasPosition {
       return;
     }
 
-    store.dispatch('openQuestion', `${this.index}`);
+    store.dispatch('openQuestion', `${this.questionnr}`);
   }
 }
 
