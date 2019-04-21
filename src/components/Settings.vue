@@ -1,11 +1,11 @@
 <template>
   <Modal>
     <template v-slot:header>
-      <h1>Vraag {{ questionnr }}.</h1>
+      <h1>Settings</h1>
     </template>
     <template v-slot:body>
       <p>
-        Hallo?
+        Herstel eerdere spelstatus:
       </p>
     </template>
   </Modal>
@@ -20,9 +20,8 @@ import Modal from '@/views/Modal.vue';
   components: {
     Modal,
   },
-  props: ['questionnr'],
 })
-export default class Question extends Vue { }
+export default class Settings extends Vue { }
 </script>
 
 <style scoped>

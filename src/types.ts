@@ -1,3 +1,5 @@
+import { Store } from 'vuex';
+
 export interface IHasPosition {
   position: {
     lat: number;
@@ -5,12 +7,11 @@ export interface IHasPosition {
   };
   icon: () => any | null;
   label: () => { text: string } | null;
-  clickable: boolean;
+  didClick?: (store: Store<RootState>) => void;
 }
 
 export class UserLocation implements IHasPosition {
   public position: { lat: number; lng: number; };
-  public clickable = false;
 
   constructor(lat: number, lng: number) {
     this.position = { lat, lng };
@@ -26,6 +27,10 @@ export class UserLocation implements IHasPosition {
   public label() {
     return null;
   }
+
+  public didClick(store: Store<RootState>) {
+    store.dispatch('openSettings');
+  }
 }
 
 declare var google: any;
@@ -36,7 +41,6 @@ export class Marker implements IHasPosition {
   public title: string;
   public locked: boolean;
   public position: { lat: number; lng: number; };
-  public clickable = true;
 
   constructor(index: number, title: string, lat: number, lng: number, locked: boolean = true) {
     this.index = index;
@@ -64,6 +68,14 @@ export class Marker implements IHasPosition {
 
   public label() {
     return { text: `${this.index}.`, color: this.locked ? '#7f8c8d' : '#2c3e50' };
+  }
+
+  public didClick(store: Store<RootState>) {
+    if (this.locked) {
+      return;
+    }
+
+    store.dispatch('openQuestion', `${this.index}`);
   }
 }
 

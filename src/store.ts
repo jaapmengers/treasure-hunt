@@ -70,11 +70,14 @@ export default new Vuex.Store<RootState>({
         context.dispatch('checkForLocationPermission');
       }
     },
-    openQuestion(context, title: string) {
-      router.push('vraag');
+    openQuestion(context, questionnr: string) {
+      router.push({ name: 'vraag', params: { questionnr } });
     },
-    dismissQuestion(context) {
+    dismissModal(context) {
       router.go(-1);
+    },
+    openSettings(context) {
+      router.push('settings');
     },
   },
 });

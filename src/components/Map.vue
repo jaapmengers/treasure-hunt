@@ -15,7 +15,7 @@
       :position="m.position"
       :icon="m.icon()"
       :label="m.label()"
-      :clickable="m.clickable"
+      :clickable="m.didClick != null"
       :draggable="false"
       @click="didClick(m)"
     />
@@ -42,12 +42,12 @@ import { RootState, Marker, UserLocation, IHasPosition } from '../types';
     },
   }),
   methods: {
-    didClick(marker: Marker) {
-      if(marker.locked) {
+    didClick(marker: IHasPosition) {
+      if (!marker.didClick) {
         return;
       }
-      
-      this.$store.dispatch('openQuestion', marker.title);
+
+      marker.didClick(this.$store);
     },
   },
 })
