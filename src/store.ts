@@ -79,5 +79,23 @@ export default new Vuex.Store<RootState>({
     openSettings(context) {
       router.push('settings');
     },
+    restoreGameState(context, encodedGameState: string) {
+      const toBeUnLocked = atob(encodedGameState)
+        .split('')
+        .map((x) => Boolean(parseInt(x, 2)))
+        // Reverse because we save as a bit array
+        .reverse();
+
+      toBeUnLocked.forEach((v, i) => {
+        if (!v) {
+          return;
+        }
+
+        // Index is zero based, quesstionr is one based
+        context.commit('unlockMarker', `${i + 1}`);
+      });
+
+      router.go(-1);
+    },
   },
 });
