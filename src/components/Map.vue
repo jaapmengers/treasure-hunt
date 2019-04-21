@@ -38,11 +38,15 @@ import { RootState, Marker, UserLocation, IHasPosition } from '../types';
       const markers: IHasPosition[] = state.markers;
       const yourLocation: IHasPosition[] = [new UserLocation(latitude, longitude)];
 
-      return markers.concat(yourLocation);
+      return yourLocation.concat(markers);
     },
   }),
   methods: {
     didClick(marker: Marker) {
+      if(marker.locked) {
+        return;
+      }
+      
       this.$store.dispatch('openQuestion', marker.title);
     },
   },
