@@ -15,7 +15,10 @@ export class UserLocation implements IHasPosition {
   }
 
   public icon() {
-    return null;
+    return {
+      url: '/img/current-location.png',
+      scaledSize: new google.maps.Size(50, 50), // scaled size
+    };
   }
 
   public label() {
