@@ -1,12 +1,22 @@
 import Vue from 'vue';
-import Vuex from 'vuex';
+import Vuex, { Store} from 'vuex';
 import { checkIfLocationPermissionGranted, requestLocationPermission, distance } from './utils';
 import { RootState, Marker } from './types';
 import router from './router';
 
 Vue.use(Vuex);
 
-export default new Vuex.Store<RootState>({
+const saveMarkersPlugin = (store: Store<RootState>) => {
+  store.subscribe((mutation, state) => {
+    if (mutation.type === 'unlockMarker') {
+      const unlocked = state.markers.filter((x) => !x.locked).map((x) => x.questionnr);
+
+      localStorage.setItem('unlockedMarkers', JSON.stringify(unlocked));
+    }
+  });
+};
+
+export default new Store<RootState>({
   state: {
     lastKnownLocation: null,
     markers: [
@@ -22,6 +32,7 @@ export default new Vuex.Store<RootState>({
       hasGrantedPermission: false,
     },
   },
+  plugins: [saveMarkersPlugin],
   mutations: {
     unlockMarker(state, questionnr: string) {
       const index = state.markers.findIndex((x) => x.questionnr === questionnr);
@@ -55,6 +66,7 @@ export default new Vuex.Store<RootState>({
       };
 
       const toBeUnLocked = context.state.markers.filter(shouldBeUnlocked);
+
       toBeUnLocked.forEach((x) => context.commit('unlockMarker', x.questionnr));
     },
     async checkForLocationPermission(context) {
@@ -78,6 +90,19 @@ export default new Vuex.Store<RootState>({
     },
     openSettings(context) {
       router.push('settings');
+    },
+    restoreStoredState(context) {
+      const unlockedStr = localStorage.getItem('unlockedMarkers');
+      if (!unlockedStr) {
+        return;
+      }
+
+      const unlocked: string[] = JSON.parse(unlockedStr);
+      if (!unlocked) {
+        return;
+      }
+
+      unlocked.forEach((x) => context.commit('unlockMarker', x));
     },
     restoreGameState(context, encodedGameState: string) {
       const toBeUnLocked = parseInt(atob(encodedGameState), 10)

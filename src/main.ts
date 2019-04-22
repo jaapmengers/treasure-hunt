@@ -20,6 +20,7 @@ new Vue({
   render: (h) => h(App),
   created() {
     store.dispatch('checkForLocationPermission');
+    store.dispatch('restoreStoredState');
   },
 }).$mount('#app');
 
