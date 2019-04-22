@@ -18,7 +18,7 @@ const saveMarkersPlugin = (store: Store<RootState>) => {
 
 export default new Store<RootState>({
   state: {
-    lastKnownLocation: new UserLocation(null, null),
+    lastKnownLocation: new UserLocation(),
     markers: [
       new Marker('1', 'Rembrandtpark', 52.365499, 4.845244),
       new Marker('2', 'Albert Heijn', 52.364247, 4.854836),

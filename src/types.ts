@@ -16,7 +16,7 @@ export class UserLocation implements IHasPosition {
   public counter: number = 0;
   public timeoutRef: number | undefined;
 
-  constructor(lat: number | undefined, lng: number | undefined) {
+  constructor(lat?: number, lng?: number) {
     if (!!lat && !!lng) {
       this.position = { lat, lng };
       return;
