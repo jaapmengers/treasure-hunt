@@ -4,17 +4,25 @@ export interface IHasPosition {
   position: {
     lat: number;
     lng: number;
-  };
+  } | null;
   icon: () => any | null;
   label: () => { text: string } | null;
   didClick?: (store: Store<RootState>) => void;
 }
 
 export class UserLocation implements IHasPosition {
-  public position: { lat: number; lng: number; };
+  public position: { lat: number; lng: number; } | null;
 
-  constructor(lat: number, lng: number) {
-    this.position = { lat, lng };
+  public counter: number = 0;
+  public timeoutRef: number | undefined;
+
+  constructor(lat: number | undefined, lng: number | undefined) {
+    if (!!lat && !!lng) {
+      this.position = { lat, lng };
+      return;
+    }
+
+    this.position = null;
   }
 
   public icon() {
@@ -29,7 +37,16 @@ export class UserLocation implements IHasPosition {
   }
 
   public didClick(store: Store<RootState>) {
-    store.dispatch('openSettings');
+    clearTimeout(this.timeoutRef);
+
+    this.counter++;
+    if (this.counter > 4) {
+      store.dispatch('openSettings');
+    }
+
+    this.timeoutRef = setTimeout(() => {
+      this.counter = 0;
+    }, 1000);
   }
 }
 
@@ -84,7 +101,7 @@ export class Marker implements IHasPosition {
 }
 
 export interface RootState {
-  lastKnownLocation: Position | null;
+  lastKnownLocation: UserLocation;
   markers: Marker[];
   permissions: {
     loading: boolean,

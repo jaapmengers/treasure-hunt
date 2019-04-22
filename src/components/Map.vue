@@ -31,13 +31,11 @@ import { RootState, Marker, UserLocation, IHasPosition } from '../types';
   computed: mapState<RootState>({
     markers: (state) => {
       const markers: IHasPosition[] = state.markers;
-      if (state.lastKnownLocation == null) {
+      if (state.lastKnownLocation.position == null) {
         return markers;
       }
 
-      const { latitude, longitude } = state.lastKnownLocation.coords;
-      const yourLocation: IHasPosition[] = [new UserLocation(latitude, longitude)];
-
+      const yourLocation: IHasPosition[] = [state.lastKnownLocation];
       return yourLocation.concat(markers);
     },
   }),

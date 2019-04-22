@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuex, { Store} from 'vuex';
 import { checkIfLocationPermissionGranted, requestLocationPermission, distance } from './utils';
-import { RootState, Marker } from './types';
+import { RootState, Marker, UserLocation } from './types';
 import router from './router';
 
 Vue.use(Vuex);
@@ -18,7 +18,7 @@ const saveMarkersPlugin = (store: Store<RootState>) => {
 
 export default new Store<RootState>({
   state: {
-    lastKnownLocation: null,
+    lastKnownLocation: new UserLocation(null, null),
     markers: [
       new Marker('1', 'Rembrandtpark', 52.365499, 4.845244),
       new Marker('2', 'Albert Heijn', 52.364247, 4.854836),
@@ -44,7 +44,8 @@ export default new Store<RootState>({
       Vue.set(state.markers, index, state.markers[index].unlock());
     },
     setLastKnownLocation(state, lastKnownLocation: Position) {
-      state.lastKnownLocation = lastKnownLocation;
+      const position = { lat: lastKnownLocation.coords.latitude, lng: lastKnownLocation.coords.longitude };
+      state.lastKnownLocation.position = position;
     },
     permissionStateIsLoading(state) {
       state.permissions.loading = true;
