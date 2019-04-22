@@ -53,6 +53,10 @@ export class Marker implements IHasPosition {
     return new Marker(this.questionnr, this.title, this.position.lat, this.position.lng, false);
   }
 
+  public reset() {
+    return new Marker(this.questionnr, this.title, this.position.lat, this.position.lng, true);
+  }
+
   public icon() {
     return {
         path: 'M22-48h-44v43h16l6 5 6-5h16z',

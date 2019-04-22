@@ -30,12 +30,12 @@ import { RootState, Marker, UserLocation, IHasPosition } from '../types';
 @Component({
   computed: mapState<RootState>({
     markers: (state) => {
+      const markers: IHasPosition[] = state.markers;
       if (state.lastKnownLocation == null) {
-        return;
+        return markers;
       }
 
       const { latitude, longitude } = state.lastKnownLocation.coords;
-      const markers: IHasPosition[] = state.markers;
       const yourLocation: IHasPosition[] = [new UserLocation(latitude, longitude)];
 
       return yourLocation.concat(markers);

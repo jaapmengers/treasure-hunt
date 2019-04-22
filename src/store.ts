@@ -55,6 +55,9 @@ export default new Store<RootState>({
         hasGrantedPermission: permissionGranted,
       };
     },
+    resetAllMarkers(state) {
+      state.markers = state.markers.map((x) => x.reset());
+    },
   },
   actions: {
     async unlockNearbyLocations(context, lastKnownLocation: Position) {
@@ -103,6 +106,12 @@ export default new Store<RootState>({
       }
 
       unlocked.forEach((x) => context.commit('unlockMarker', x));
+    },
+    resetGameState(context) {
+      localStorage.removeItem('unlockedMarkers');
+      context.commit('resetAllMarkers');
+
+      router.go(-1);
     },
     restoreGameState(context, encodedGameState: string) {
       const toBeUnLocked = parseInt(atob(encodedGameState), 10)

@@ -4,11 +4,14 @@
       <h1>Settings</h1>
     </template>
     <template v-slot:body>
-      <p>
-        Herstel eerdere spelstatus:
+      <div>
+        Herstel eerdere spelstatus:<br/>
         <input type="text" v-model="code" placeholder="Secret code"/>
         <button type="submit" v-on:click="restore()">Herstel</button>
-      </p>
+      </div>
+      <div>
+        <button type="submit" v-on:click="resetState()">Reset voortgang</button>
+      </div>
     </template>
   </Modal>
 </template>
@@ -34,6 +37,9 @@ import Modal from '@/views/Modal.vue';
       }
 
       this.$store.dispatch('restoreGameState', this.$data.code);
+    },
+    resetState() {
+      this.$store.dispatch('resetGameState');
     },
   },
 })
