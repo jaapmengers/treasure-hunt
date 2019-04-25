@@ -55,23 +55,23 @@ declare var google: any;
 // tslint:disable-next-line: max-classes-per-file
 export class Marker implements IHasPosition {
   public questionnr: string;
-  public title: string;
+  public body: string;
   public locked: boolean;
   public position: { lat: number; lng: number; };
 
-  constructor(questionnr: string, title: string, lat: number, lng: number, locked: boolean = true) {
+  constructor(questionnr: string, body: string, lat: number, lng: number, locked: boolean = true) {
     this.questionnr = questionnr;
-    this.title = title;
+    this.body = body;
     this.locked = locked;
     this.position = { lat, lng };
   }
 
   public unlock() {
-    return new Marker(this.questionnr, this.title, this.position.lat, this.position.lng, false);
+    return new Marker(this.questionnr, this.body, this.position.lat, this.position.lng, false);
   }
 
   public reset() {
-    return new Marker(this.questionnr, this.title, this.position.lat, this.position.lng, true);
+    return new Marker(this.questionnr, this.body, this.position.lat, this.position.lng, true);
   }
 
   public icon() {

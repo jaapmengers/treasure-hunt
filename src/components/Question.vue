@@ -5,8 +5,9 @@
     </template>
     <template v-slot:body>
       <p>
-        {{ marker.title }}
+        {{ marker.body }}
       </p>
+      <a :href="`https://wa.me/31654237212?text=Vraag ${questionnr}: `" id="whatsapp-button">Antwoord via WhatsApp</a>
     </template>
   </Modal>
 </template>
@@ -42,5 +43,16 @@ export default class Question extends Vue { }
 <style scoped>
   p {
     font-size: 1.2em;
+  }
+
+  #whatsapp-button {
+    display: block;
+    text-align: center;
+    margin: 30px 10px;
+    font-size: 1.3em;
+    border: 1px solid #42b983;
+    color: #42b983;
+    padding: 10px;
+    text-decoration: none;
   }
 </style>

@@ -3,6 +3,7 @@ import Vuex, { Store} from 'vuex';
 import { checkIfLocationPermissionGranted, requestLocationPermission, distance } from './utils';
 import { RootState, Marker, UserLocation } from './types';
 import router from './router';
+import data from './challenges.json';
 
 Vue.use(Vuex);
 
@@ -19,14 +20,7 @@ const saveMarkersPlugin = (store: Store<RootState>) => {
 export default new Store<RootState>({
   state: {
     lastKnownLocation: new UserLocation(),
-    markers: [
-      new Marker('1', 'Rembrandtpark', 52.365499, 4.845244),
-      new Marker('2', 'Albert Heijn', 52.364247, 4.854836),
-      new Marker('3', 'Edel', 52.364339, 4.858634),
-      new Marker('4', 'Moskee', 52.365977, 4.86060),
-      new Marker('5', 'Lennep', 52.36295, 4.862153),
-      new Marker('6', 'Jumbo', 52.358757, 4.854964),
-    ],
+    markers: data.map((x: any) => new Marker(x.id, x.body, x.lat, x.lng)),
     permissions: {
       loading: false,
       hasGrantedPermission: false,
