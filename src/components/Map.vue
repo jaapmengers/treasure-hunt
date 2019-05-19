@@ -1,6 +1,6 @@
 <template>
   <GmapMap
-    :center="{lat:52.362168, lng: 4.855505}"
+    :center="yourLocation"
     :zoom="15"
     map-type-id="terrain"
     :options="{
@@ -29,6 +29,9 @@ import { RootState, Marker, UserLocation, IHasPosition } from '../types';
 
 @Component({
   computed: mapState<RootState>({
+    yourLocation: (state) => {
+      return state.lastKnownLocation.position;
+    },
     markers: (state) => {
       const markers: IHasPosition[] = state.markers;
       if (state.lastKnownLocation.position == null) {
