@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
+    "serve": "./import.sh && vue-cli-service serve",
     "lint": "vue-cli-service lint",
-    "deploy": "vue-cli-service build --dest /tmp/treasure-hunt-dist && ./deploy.sh"
+    "build": "./import.sh && vue-cli-service build"
   },
   "dependencies": {
     "core-js": "^2.6.5",

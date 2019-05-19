@@ -1,36 +1,56 @@
-[{
-  "id": "1", 
-  "body": "Aai een paard. Fotografeer dat.", 
-  "lat": 52.365499, 
-  "lng": 4.845244
-},
-{
-  "id": "2", 
-  "body": "Koop het goedkoopste product dat je kan vinden. Stuur een foto van het product en kassabon als bewijs", 
-  "lat": 52.364247, 
-  "lng": 4.854836
-},
-{
-  "id": "3", 
-  "body": "Je bent op de Pakkebierweg. Pak een bier (of ander drankje naar keuze). Drink hem. Stuur een foto. ", 
-  "lat": 52.364339, 
-  "lng": 4.858634
-},
-{
-  "id": "4", 
-  "body": "Verdien 5 punten voor een foto van een schaarsgekleed teamlid. Je krijgt 1 minpunt voor elk resterend kledingstuk.", 
-  "lat": 52.365977, 
-  "lng": 4.86060
-},
-{
-  "id": "5", 
-  "body": "Je bent op de Pakkebierweg. Pak een bier (of ander drankje naar keuze). Drink hem. Stuur een foto. ", 
-  "lat": 52.36295, 
-  "lng": 4.862153
-},
-{
-  "id": "6", 
-  "body": "Koop het goedkoopste product dat je kan vinden. Stuur een foto van het product en kassabon als bewijs", 
-  "lat": 52.358757, 
-  "lng": 4.854964
-}]
+[
+  {
+    "id": "1",
+    "lat": 52.365499,
+    "lng": 4.845244,
+    "body": "Aai een paard. Fotografeer dat."
+  },
+  {
+    "id": "2",
+    "lat": 52.364247,
+    "lng": 4.854836,
+    "body": "Koop het goedkoopste product dat je kan vinden. Stuur een foto van het product en kassabon als bewijs."
+  },
+  {
+    "id": "3",
+    "lat": 52.364339,
+    "lng": 4.858634,
+    "body": "Je bent op de Pakkebierweg. Pak een bier (of ander drankje naar keuze). Drink hem. Stuur een foto."
+  },
+  {
+    "id": "4",
+    "lat": 52.365977,
+    "lng": 4.8606,
+    "body": "Verdien 5 punten voor een foto van een schaarsgekleed teamlid. Je krijgt 1 minpunt voor elk resterend kledingstuk."
+  },
+  {
+    "id": "5",
+    "lat": 52.36295,
+    "lng": 4.862153,
+    "body": "Je bent op de Pakkebierweg. Pak een bier (of ander drankje naar keuze). Drink hem. Stuur een foto."
+  },
+  {
+    "id": "6",
+    "lat": 52.358757,
+    "lng": 4.854964,
+    "body": "Koop het goedkoopste product dat je kan vinden. Stuur een foto van het product en kassabon als bewijs."
+  },
+  {
+    "id": "7",
+    "lat": 51.981467,
+    "lng": 6.565106,
+    "body": "Maak Beatles' wereldberoemde Abbey Road albumhoes zo goed mogelijk na. Stuur het resultaat op"
+  },
+  {
+    "id": "8",
+    "lat": 51.981672,
+    "lng": 6.563596,
+    "body": "Wat denk je?! Knallen over die baan, jonguh! Actiefoto au"
+  },
+  {
+    "id": "9",
+    "lat": 51.985906,
+    "lng": 6.562115,
+    "body": "Koop het goedkoopste product dat je kan vinden. Stuur een foto van het product en kassabon als bewijs"
+  }
+]
