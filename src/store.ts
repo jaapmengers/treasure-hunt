@@ -20,7 +20,7 @@ const saveMarkersPlugin = (store: Store<RootState>) => {
 export default new Store<RootState>({
   state: {
     lastKnownLocation: new UserLocation(),
-    markers: data.map((x: any) => new Marker(x.id, x.body, x.lat, x.lng)),
+    markers: data.map((x: any) => new Marker(x.id, x.body, x.lat, x.lng, x.image)),
     permissions: {
       loading: false,
       hasGrantedPermission: false,

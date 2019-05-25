@@ -58,20 +58,22 @@ export class Marker implements IHasPosition {
   public body: string;
   public locked: boolean;
   public position: { lat: number; lng: number; };
+  public image: string;
 
-  constructor(questionnr: string, body: string, lat: number, lng: number, locked: boolean = true) {
+  constructor(questionnr: string, body: string, lat: number, lng: number, image: string, locked: boolean = true) {
     this.questionnr = questionnr;
     this.body = body;
     this.locked = locked;
     this.position = { lat, lng };
+    this.image = image;
   }
 
   public unlock() {
-    return new Marker(this.questionnr, this.body, this.position.lat, this.position.lng, false);
+    return new Marker(this.questionnr, this.body, this.position.lat, this.position.lng, this.image, false);
   }
 
   public reset() {
-    return new Marker(this.questionnr, this.body, this.position.lat, this.position.lng, true);
+    return new Marker(this.questionnr, this.body, this.position.lat, this.position.lng, this.image, true);
   }
 
   public icon() {

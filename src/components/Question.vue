@@ -7,6 +7,8 @@
       <p>
         {{ marker.body }}
       </p>
+
+      <img v-if="!!marker.image" :src="`/img/${marker.image}`" />
       <a :href="`https://wa.me/31654237212?text=Vraag ${questionnr}: `" id="whatsapp-button">Antwoord via WhatsApp</a>
     </template>
   </Modal>
@@ -43,6 +45,12 @@ export default class Question extends Vue { }
 <style scoped>
   p {
     font-size: 1.2em;
+  }
+
+  img { 
+    display: block;
+    max-width: 100%;
+    overflow: hidden;
   }
 
   #whatsapp-button {
