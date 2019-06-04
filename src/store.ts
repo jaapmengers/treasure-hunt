@@ -1,26 +1,32 @@
 import Vue from 'vue';
 import Vuex, { Store} from 'vuex';
-import { checkIfLocationPermissionGranted, requestLocationPermission, distance } from './utils';
+import { requestLocationPermission, distance } from './utils';
 import { RootState, Marker, UserLocation } from './types';
+import LocationWatcher from './locationwatcher';
 import router from './router';
 import data from './challenges.json';
 
 Vue.use(Vuex);
 
-const saveMarkersPlugin = (store: Store<RootState>) => {
-  store.subscribe((mutation, state) => {
+const saveMarkersPlugin = (s: Store<RootState>) => {
+  s.subscribe((mutation, state) => {
     if (mutation.type === 'unlockMarker') {
       const unlocked = state.markers.filter((x) => !x.locked).map((x) => x.questionnr);
 
       localStorage.setItem('unlockedMarkers', JSON.stringify(unlocked));
+    } else if (mutation.type === 'setPermissionState' && mutation.payload === true) {
+      localStorage.setItem('gavePermission', JSON.stringify(true));
+    } else if (mutation.type === 'setOnboardingFinished') {
+      localStorage.setItem('onboardingFinished', JSON.stringify(true));
     }
   });
 };
 
-export default new Store<RootState>({
+const store = new Store<RootState>({
   state: {
     lastKnownLocation: new UserLocation(),
     markers: data.map((x: any) => new Marker(x.id, x.body, x.lat, x.lng, x.image)),
+    hasFinishedOnboarding: false,
     permissions: {
       loading: false,
       hasGrantedPermission: false,
@@ -53,13 +59,16 @@ export default new Store<RootState>({
     resetAllMarkers(state) {
       state.markers = state.markers.map((x) => x.reset());
     },
+    setOnboardingFinished(state, finished) {
+      state.hasFinishedOnboarding = finished;
+    },
   },
   actions: {
     async unlockNearbyLocations(context, lastKnownLocation: Position) {
       const { latitude, longitude } = lastKnownLocation.coords;
 
       const shouldBeUnlocked = (x: Marker) => {
-        const closeEnough = distance(x.position.lat, x.position.lng, latitude, longitude) <= 50;
+        const closeEnough = distance(x.position.lat, x.position.lng, latitude, longitude) <= 25;
         return closeEnough && x.locked;
       };
 
@@ -67,18 +76,15 @@ export default new Store<RootState>({
 
       toBeUnLocked.forEach((x) => context.commit('unlockMarker', x.questionnr));
     },
-    async checkForLocationPermission(context) {
+    async requestLocationPermission(context) {
       context.commit('permissionStateIsLoading');
-      const result = await checkIfLocationPermissionGranted();
+
+      const result = await requestLocationPermission();
 
       context.commit('setPermissionState', result);
     },
-    async requestLocationPermission(context) {
-      try {
-        await requestLocationPermission();
-      } finally {
-        context.dispatch('checkForLocationPermission');
-      }
+    startPollingLocationData(context) {
+      getLocationWatcher().watchForLocationChanges(1000);
     },
     openQuestion(context, questionnr: string) {
       router.push({ name: 'vraag', params: { questionnr } });
@@ -90,20 +96,25 @@ export default new Store<RootState>({
       router.push('settings');
     },
     restoreStoredState(context) {
-      const unlockedStr = localStorage.getItem('unlockedMarkers');
-      if (!unlockedStr) {
-        return;
-      }
-
+      const unlockedStr = localStorage.getItem('unlockedMarkers') || '[]';
       const unlocked: string[] = JSON.parse(unlockedStr);
-      if (!unlocked) {
-        return;
-      }
 
       unlocked.forEach((x) => context.commit('unlockMarker', x));
+
+      const gavePermission = JSON.parse(localStorage.getItem('gavePermission') || 'false');
+      context.commit('setPermissionState', gavePermission);
+
+      const finishedOnboarding = JSON.parse(localStorage.getItem('onboardingFinished') || 'false');
+      context.commit('setOnboardingFinished', finishedOnboarding);
+      if (finishedOnboarding) {
+        context.dispatch('startPollingLocationData');
+      }
     },
     resetGameState(context) {
       localStorage.removeItem('unlockedMarkers');
+      localStorage.removeItem('gavePermission');
+      localStorage.removeItem('onboardingFinished');
+
       context.commit('resetAllMarkers');
 
       router.go(-1);
@@ -129,3 +140,8 @@ export default new Store<RootState>({
     },
   },
 });
+
+const locationWatcher = new LocationWatcher(store);
+const getLocationWatcher = () => locationWatcher;
+
+export default store;

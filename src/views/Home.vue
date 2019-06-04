@@ -1,9 +1,7 @@
 <template>
-  <div id="container">
-    <div v-if="permissions.loading">
-      Loading...
-    </div>
-    <Map v-else-if="permissions.hasGrantedPermission" />
+  <div v-if="loading"></div>
+  <div v-else id="container">
+    <Map v-if="hasFinishedOnboarding" />
     <Onboarding v-else />
     <transition name="slide">
       <router-view></router-view>
@@ -17,16 +15,36 @@ import Map from '@/components/Map.vue';
 import Onboarding from '@/components/Onboarding.vue';
 import { mapState } from 'vuex';
 
+declare var google: any;
+
 @Component({
+  data() {
+    return {
+      loading: true,
+      interval: '',
+    };
+  },
+  mounted() {
+    this.$data.interval = setInterval(() => {
+      this.$data.loading = !google;
+
+      if (!this.$data.loading) {
+        clearInterval(this.$data.interval);
+      }
+    }, 50);
+  },
+  beforeDestroy() {
+    if (this.$data.interval) {
+      clearInterval(this.$data.interval);
+    }
+  },
   components: {
     Map,
     Onboarding,
   },
-  computed: {
-    permissions() {
-      return this.$store.state.permissions;
-    },
-  },
+  computed: mapState([
+    'hasFinishedOnboarding',
+  ]),
 })
 export default class Home extends Vue { }
 </script>

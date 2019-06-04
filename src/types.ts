@@ -109,4 +109,5 @@ export interface RootState {
     loading: boolean,
     hasGrantedPermission: boolean,
   };
+  hasFinishedOnboarding: boolean;
 }

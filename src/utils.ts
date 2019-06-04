@@ -1,29 +1,14 @@
-export async function checkIfLocationPermissionGranted(): Promise<boolean> {
-  const nav = navigator as Navigator;
-  if (!nav) {
+export async function requestLocationPermission(): Promise<boolean> {
+  if (!navigator.geolocation) {
     return false;
   }
 
-  if (!!navigator.permissions) {
-    const result = await navigator.permissions.query({ name: 'geolocation' });
-    return result.state === 'granted';
-  }
-
   try {
-    await requestLocationPermission();
+    await getCurrentLocation();
     return true;
   } catch {
     return false;
   }
-}
-
-export async function requestLocationPermission(): Promise<void> {
-  if (!navigator.geolocation) {
-    return;
-  }
-
-  await getCurrentLocation();
-  return;
 }
 
 export async function getCurrentLocation(): Promise<Position> {
