@@ -7,6 +7,7 @@ export interface IHasPosition {
   } | null;
   icon: () => any | null;
   label: () => { text: string } | null;
+  zIndex: number;
   didClick?: (store: Store<RootState>) => void;
 }
 
@@ -15,6 +16,8 @@ export class UserLocation implements IHasPosition {
 
   public counter: number = 0;
   public timeoutRef: number | undefined;
+
+  public zIndex = 0;
 
   constructor(lat?: number, lng?: number) {
     if (!!lat && !!lng) {
@@ -59,6 +62,8 @@ export class Marker implements IHasPosition {
   public locked: boolean;
   public position: { lat: number; lng: number; };
   public image: string;
+
+  public zIndex = 1;
 
   constructor(questionnr: string, body: string, lat: number, lng: number, image: string, locked: boolean = true) {
     this.questionnr = questionnr;

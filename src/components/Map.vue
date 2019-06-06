@@ -17,6 +17,7 @@
       :label="m.label()"
       :clickable="m.didClick != null"
       :draggable="false"
+      :zIndex="m.zIndex"
       @click="didClick(m)"
     />
   </GmapMap>
