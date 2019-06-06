@@ -10,7 +10,7 @@
       <h1>Klaar om te beginnen?</h1>
       <p>Mooi! Maar je moet eerst nog even locatietoestemming geven. </p>
       <p>Je krijgt zo een pop up met de vraag of jaap.dev je locatie mag weten. 
-        Klik op 'Allow'. Ik beloof dat ik er geen misbruik van zal maken</p>
+        Klik op 'Allow'. Ik beloof dat ik er geen misbruik van zal maken.</p>
       <button :disabled="permissions.loading" v-on:click="requestPermission()">Ik snap het, let's go!</button>
     </div>
 </template>
@@ -74,7 +74,8 @@ export default Vue.extend({
     margin: 0 auto;
     border: 1px solid #42b983;
     color: #42b983;
-    font-size: 2em;
+    font-size: 1.5em;
+    width: 100%;
     outline: none;
     font-family: Avenir,Helvetica,Arial,sans-serif;
     text-transform: uppercase;
