@@ -9,7 +9,7 @@
       </p>
 
       <img v-if="!!marker.image" :src="`/img/${marker.image}`" />
-      <a :href="`https://wa.me/31654237212?text=Vraag ${questionnr}: `" id="whatsapp-button">Antwoord via WhatsApp</a>
+      <a :href="`https://wa.me/31646156035?text=Vraag ${questionnr}: `" id="whatsapp-button">Antwoord via WhatsApp</a>
     </template>
   </Modal>
 </template>
