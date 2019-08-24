@@ -31,7 +31,7 @@ export default Vue.extend({
   },
   watch: {
     gameCode() {
-      if (this.$data.gameCode.toUpperCase() === 'VD2019') {
+      if (this.$data.gameCode.toUpperCase() === 'chelsea') {
         this.$store.commit('setOnboardingFinished', true);
         this.$store.dispatch('startPollingLocationData');
       }
