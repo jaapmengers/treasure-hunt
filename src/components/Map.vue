@@ -24,13 +24,13 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator';
-import { mapState } from 'vuex';
-import { RootState, Marker, UserLocation, IHasPosition } from '../types';
+import { Component, Prop, Vue } from "vue-property-decorator";
+import { mapState } from "vuex";
+import { RootState, Marker, UserLocation, IHasPosition } from "../types";
 
 @Component({
   computed: mapState<RootState>({
-    markers: (state) => {
+    markers: (state: RootState) => {
       const markers: IHasPosition[] = state.markers;
       if (state.lastKnownLocation.position == null) {
         return markers;
@@ -38,7 +38,7 @@ import { RootState, Marker, UserLocation, IHasPosition } from '../types';
 
       const yourLocation: IHasPosition[] = [state.lastKnownLocation];
       return yourLocation.concat(markers);
-    },
+    }
   }),
   methods: {
     didClick(marker: IHasPosition) {
@@ -47,8 +47,8 @@ import { RootState, Marker, UserLocation, IHasPosition } from '../types';
       }
 
       marker.didClick(this.$store);
-    },
-  },
+    }
+  }
 })
-export default class Map extends Vue { }
+export default class Map extends Vue {}
 </script>
