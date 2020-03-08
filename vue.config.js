@@ -1,12 +1,21 @@
-// vue.config.js
+const settings = require("./settings.json");
+
 module.exports = {
   devServer: {
     disableHostCheck: true
   },
   configureWebpack: {
-    devtool: 'source-map',
+    devtool: "source-map",
     output: {
-      filename: '[name].[hash].js'
+      filename: "[name].[hash].js"
     }
   },
-}
+  chainWebpack: config => {
+    config.plugin("html").tap(args => {
+      const [firstArg, ...rest] = args;
+      const newArg = Object.assign({}, firstArg, settings);
+
+      return [newArg, ...rest];
+    });
+  }
+};

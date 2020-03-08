@@ -1,4 +1,6 @@
 src/challenges.json
+settings.json
+.env
 
 .DS_Store
 node_modules
