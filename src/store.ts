@@ -6,6 +6,9 @@ import LocationWatcher from './locationwatcher';
 import router from './router';
 import data from './challenges.json';
 
+console.log({ data });
+
+
 Vue.use(Vuex);
 
 const saveMarkersPlugin = (s: Store<RootState>) => {
@@ -25,7 +28,7 @@ const saveMarkersPlugin = (s: Store<RootState>) => {
 const store = new Store<RootState>({
   state: {
     lastKnownLocation: new UserLocation(),
-    markers: data.map((x: any) => new Marker(x.id, x.body, x.lat, x.lng, x.image)),
+    markers: data.map((x: any) => new Marker(x.id, x.body, parseFloat(x.lat), parseFloat(x.lng), x.image)),
     hasFinishedOnboarding: false,
     permissions: {
       loading: false,
