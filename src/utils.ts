@@ -11,11 +11,11 @@ export async function requestLocationPermission(): Promise<boolean> {
   }
 }
 
-export async function getCurrentLocation(): Promise<Position> {
+export async function getCurrentLocation(): Promise<GeolocationPosition> {
   return new Promise((resolve, reject) => {
-    navigator.geolocation.getCurrentPosition((position: Position) => {
+    navigator.geolocation.getCurrentPosition((position: GeolocationPosition) => {
       resolve(position);
-    }, (err: PositionError) => {
+    }, (err: GeolocationPositionError) => {
       reject(err);
     });
   });

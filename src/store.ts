@@ -46,7 +46,7 @@ const store = new Store<RootState>({
 
       Vue.set(state.markers, index, state.markers[index].unlock());
     },
-    setLastKnownLocation(state, lastKnownLocation: Position) {
+    setLastKnownLocation(state, lastKnownLocation: GeolocationPosition) {
       const position = { lat: lastKnownLocation.coords.latitude, lng: lastKnownLocation.coords.longitude };
       state.lastKnownLocation.position = position;
     },
@@ -67,7 +67,7 @@ const store = new Store<RootState>({
     },
   },
   actions: {
-    async unlockNearbyLocations(context, lastKnownLocation: Position) {
+    async unlockNearbyLocations(context, lastKnownLocation: GeolocationPosition) {
       const { latitude, longitude } = lastKnownLocation.coords;
 
       const shouldBeUnlocked = (x: Marker) => {

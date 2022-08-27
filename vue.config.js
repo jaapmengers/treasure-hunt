@@ -1,9 +1,6 @@
 const settings = require("./settings.json");
 
 module.exports = {
-  devServer: {
-    disableHostCheck: true
-  },
   configureWebpack: {
     devtool: "source-map",
     output: {
