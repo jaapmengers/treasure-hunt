@@ -36,7 +36,7 @@ export class UserLocation implements IHasPosition {
   }
 
   public label() {
-    return { text: "Locatie" };
+    return null;
   }
 
   public didClick(store: Store<RootState>) {
