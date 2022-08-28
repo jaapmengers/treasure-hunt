@@ -8,7 +8,7 @@
         {{ marker?.body }}
       </p>
 
-      <img v-if="!!marker?.image" :src="`/img/${marker.image}`" />
+      <img v-if="!!marker?.image" :src="marker.image" />
       <a
         :href="`https://wa.me/${phonenumber}?text=Vraag ${questionnr}: `"
         target="_blank"
