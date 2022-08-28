@@ -23,33 +23,32 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
+import { defineComponent } from "vue";
 import { mapState } from "vuex";
-import { RootState } from "../types";
 
-export default Vue.extend({
+export default defineComponent({
   computed: mapState(["permissions"]),
   data() {
     return {
-      gameCode: ""
+      gameCode: "",
     };
   },
   watch: {
     gameCode() {
       if (
         this.$data.gameCode.toUpperCase() ===
-        process.env.VUE_APP_CODEWORD.toUpperCase()
+        import.meta.env.VITE_CODEWORD.toUpperCase()
       ) {
         this.$store.commit("setOnboardingFinished", true);
         this.$store.dispatch("startPollingLocationData");
       }
-    }
+    },
   },
   methods: {
     requestPermission() {
       return this.$store.dispatch("requestLocationPermission");
-    }
-  }
+    },
+  },
 });
 </script>
 

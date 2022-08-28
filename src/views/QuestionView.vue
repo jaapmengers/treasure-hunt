@@ -1,40 +1,40 @@
 <template>
-  <Modal v-if="!!marker">
+  <ModalView>
     <template v-slot:header>
       <h1>Vraag {{ questionnr }}.</h1>
     </template>
     <template v-slot:body>
       <p>
-        {{ marker.body }}
+        {{ marker?.body }}
       </p>
 
-      <img v-if="!!marker.image" :src="`/img/${marker.image}`" />
+      <img v-if="!!marker?.image" :src="`/img/${marker.image}`" />
       <a
-        :href="
-          `https://wa.me/${process.env.VUE_APP_PHONENUMBER}?text=Vraag ${questionnr}: `
-        "
+        :href="`https://wa.me/${phonenumber}?text=Vraag ${questionnr}: `"
         id="whatsapp-button"
         >Antwoord via WhatsApp</a
       >
     </template>
-  </Modal>
+  </ModalView>
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-import { Component } from "vue-property-decorator";
-import Modal from "@/views/Modal.vue";
-import { RootState } from "../types";
-import { Store } from "vuex";
+import type { RootState } from "@/types";
+import { defineComponent } from "vue";
+import type { Store } from "vuex";
+import ModalView from "./ModalView.vue";
 
-@Component({
+export default defineComponent({
   components: {
-    Modal
+    ModalView,
   },
   computed: {
+    phonenumber() {
+      return import.meta.env.VITE_PHONENUMBER;
+    },
     marker() {
       const marker = (this.$store as Store<RootState>).state.markers.find(
-        x => x.questionnr === this.$props.questionnr
+        (x) => x.questionnr === this.$props.questionnr
       );
 
       if (!!marker && !marker.locked) {
@@ -42,11 +42,10 @@ import { Store } from "vuex";
       }
 
       return null;
-    }
+    },
   },
-  props: ["questionnr"]
-})
-export default class Question extends Vue {}
+  props: ["questionnr"],
+});
 </script>
 
 <style scoped>

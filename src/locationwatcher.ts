@@ -1,11 +1,11 @@
-import { Store } from 'vuex';
-import { getCurrentLocation } from './utils';
+import type { Store } from "vuex";
+import { getCurrentLocation } from "./utils";
 
 export default class LocationWatcher<T> {
   private store: Store<T>;
 
   constructor(store: Store<T>) {
-   this.store = store;
+    this.store = store;
   }
 
   public watchForLocationChanges(timeout: number) {
@@ -13,8 +13,9 @@ export default class LocationWatcher<T> {
     setInterval(async () => {
       try {
         const location = await getCurrentLocation();
-        this.store.commit('setLastKnownLocation', location);
-        this.store.dispatch('unlockNearbyLocations', location);
+
+        this.store.commit("setLastKnownLocation", location);
+        this.store.dispatch("unlockNearbyLocations", location);
       } catch {
         // do nothing for now
       }

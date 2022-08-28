@@ -1,4 +1,4 @@
-import { Store } from 'vuex';
+import type { Store } from "vuex";
 
 export interface IHasPosition {
   position: {
@@ -12,9 +12,9 @@ export interface IHasPosition {
 }
 
 export class UserLocation implements IHasPosition {
-  public position: { lat: number; lng: number; } | null;
+  public position: { lat: number; lng: number } | null;
 
-  public counter: number = 0;
+  public counter = 0;
   public timeoutRef: number | undefined;
 
   public zIndex = 0;
@@ -30,13 +30,13 @@ export class UserLocation implements IHasPosition {
 
   public icon() {
     return {
-      url: '/img/current-location.png',
-      scaledSize: new google.maps.Size(50, 50),
+      url: "/current-location.png",
+      scaledSize: { width: 50, height: 50 },
     };
   }
 
   public label() {
-    return null;
+    return { text: "Locatie" };
   }
 
   public didClick(store: Store<RootState>) {
@@ -44,7 +44,7 @@ export class UserLocation implements IHasPosition {
 
     this.counter++;
     if (this.counter > 4) {
-      store.dispatch('openSettings');
+      store.dispatch("openSettings");
     }
 
     this.timeoutRef = setTimeout(() => {
@@ -53,19 +53,24 @@ export class UserLocation implements IHasPosition {
   }
 }
 
-declare var google: any;
-
 // tslint:disable-next-line: max-classes-per-file
 export class Marker implements IHasPosition {
   public questionnr: string;
   public body: string;
   public locked: boolean;
-  public position: { lat: number; lng: number; };
+  public position: { lat: number; lng: number };
   public image: string;
 
   public zIndex = 1;
 
-  constructor(questionnr: string, body: string, lat: number, lng: number, image: string, locked: boolean = true) {
+  constructor(
+    questionnr: string,
+    body: string,
+    lat: number,
+    lng: number,
+    image: string,
+    locked = true
+  ) {
     this.questionnr = questionnr;
     this.body = body;
     this.locked = locked;
@@ -74,28 +79,45 @@ export class Marker implements IHasPosition {
   }
 
   public unlock() {
-    return new Marker(this.questionnr, this.body, this.position.lat, this.position.lng, this.image, false);
+    return new Marker(
+      this.questionnr,
+      this.body,
+      this.position.lat,
+      this.position.lng,
+      this.image,
+      false
+    );
   }
 
   public reset() {
-    return new Marker(this.questionnr, this.body, this.position.lat, this.position.lng, this.image, true);
+    return new Marker(
+      this.questionnr,
+      this.body,
+      this.position.lat,
+      this.position.lng,
+      this.image,
+      true
+    );
   }
 
   public icon() {
     return {
-        path: 'M22-48h-44v43h16l6 5 6-5h16z',
-        fillColor: this.locked ? '#f6f6f6' : '#42b983',
-        fillOpacity: 1,
-        anchor: new google.maps.Point(0, 0),
-        strokeWeight: 1,
-        strokeColor: this.locked ? '#7f8c8d' : '#2c3e50',
-        scale: 1,
-        labelOrigin: new google.maps.Point(1, -25),
+      path: "M22-48h-44v43h16l6 5 6-5h16z",
+      fillColor: this.locked ? "#f6f6f6" : "#42b983",
+      fillOpacity: 1,
+      anchor: { x: 0, y: 0 },
+      strokeWeight: 1,
+      strokeColor: this.locked ? "#7f8c8d" : "#2c3e50",
+      scale: 1,
+      labelOrigin: { x: 1, y: -25 },
     };
   }
 
   public label() {
-    return { text: `${this.questionnr}.`, color: this.locked ? '#7f8c8d' : '#2c3e50' };
+    return {
+      text: `${this.questionnr}.`,
+      color: this.locked ? "#7f8c8d" : "#2c3e50",
+    };
   }
 
   public didClick(store: Store<RootState>) {
@@ -103,7 +125,7 @@ export class Marker implements IHasPosition {
       return;
     }
 
-    store.dispatch('openQuestion', `${this.questionnr}`);
+    store.dispatch("openQuestion", `${this.questionnr}`);
   }
 }
 
@@ -111,8 +133,8 @@ export interface RootState {
   lastKnownLocation: UserLocation;
   markers: Marker[];
   permissions: {
-    loading: boolean,
-    hasGrantedPermission: boolean,
+    loading: boolean;
+    hasGrantedPermission: boolean;
   };
   hasFinishedOnboarding: boolean;
 }

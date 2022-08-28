@@ -1,23 +1,19 @@
-import Vue from "vue";
+import { createApp } from "vue";
 import App from "./App.vue";
 import router from "./router";
+import VueGoogleMaps from "@fawmi/vue-google-maps";
+
+import "./assets/main.css";
 import store from "./store";
-import * as VueGoogleMaps from "vue2-google-maps";
-import "./registerServiceWorker";
 
-Vue.config.productionTip = false;
+const app = createApp(App);
 
-Vue.use(VueGoogleMaps, {
+app.use(store);
+app.use(router);
+app.use(VueGoogleMaps, {
   load: {
-    key: "AIzaSyCBrMcezpc02EZI8GRaRTwqF9p0EbHIGXo"
-  }
+    key: "AIzaSyCBrMcezpc02EZI8GRaRTwqF9p0EbHIGXo",
+  },
 });
 
-new Vue({
-  router,
-  store,
-  render: h => h(App),
-  created() {
-    store.dispatch("restoreStoredState");
-  }
-}).$mount("#app");
+app.mount("#app");
