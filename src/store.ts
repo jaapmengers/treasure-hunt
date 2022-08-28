@@ -29,6 +29,7 @@ const store = createStore<RootState>({
   state() {
     return {
       lastKnownLocation: new UserLocation(),
+      initialLocation: null,
       markers: data.map(
         (x: any) =>
           new Marker(
@@ -66,6 +67,9 @@ const store = createStore<RootState>({
       };
 
       state.lastKnownLocation.position = position;
+      if(!state.initialLocation) {
+        state.initialLocation = position;
+      }
     },
     permissionStateIsLoading(state) {
       state.permissions.loading = true;

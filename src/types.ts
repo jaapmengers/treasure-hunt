@@ -131,6 +131,7 @@ export class Marker implements IHasPosition {
 
 export interface RootState {
   lastKnownLocation: UserLocation;
+  initialLocation: { lat: Number, lng: Number} | null;
   markers: Marker[];
   permissions: {
     loading: boolean;

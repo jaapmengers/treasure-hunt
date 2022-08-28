@@ -1,12 +1,12 @@
 <script lang="ts">
-import type { IHasPosition } from "@/types";
+import type { IHasPosition, UserLocation } from "@/types";
 import { defineComponent } from "vue";
 
 export default defineComponent({
   name: "App",
   computed: {
-    center() {
-      return this.$store.state.lastKnownLocation.position;
+    initialCenter() {
+      return this.$store.state.initialLocation;
     },
     markers() {
       const markers: IHasPosition[] = this.$store.state.markers;
@@ -19,6 +19,13 @@ export default defineComponent({
       ];
       return yourLocation.concat(markers);
     },
+  },
+  watch: {
+    center(newValue, oldValue) {
+      if(!oldValue) {
+
+      }
+    }
   },
   methods: {
     didClick(marker: IHasPosition) {
@@ -34,8 +41,8 @@ export default defineComponent({
 
 <template>
   <GMapMap
-    v-if="center"
-    :center="center"
+    v-if="initialCenter"
+    :center="initialCenter"
     :zoom="15"
     map-type-id="terrain"
     :options="{
