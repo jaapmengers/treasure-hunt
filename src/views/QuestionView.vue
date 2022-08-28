@@ -11,6 +11,7 @@
       <img v-if="!!marker?.image" :src="`/img/${marker.image}`" />
       <a
         :href="`https://wa.me/${phonenumber}?text=Vraag ${questionnr}: `"
+        target="_blank"
         id="whatsapp-button"
         >Antwoord via WhatsApp</a
       >
