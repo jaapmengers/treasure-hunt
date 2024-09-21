@@ -96,7 +96,7 @@ const store = createStore<RootState>({
 
       const shouldBeUnlocked = (x: Marker) => {
         const closeEnough =
-          distance(x.position.lat, x.position.lng, latitude, longitude) <= 75;
+          distance(x.position.lat, x.position.lng, latitude, longitude) <= 125;
         return closeEnough && x.locked;
       };
 
