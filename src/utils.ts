@@ -19,6 +19,9 @@ export async function getCurrentLocation(): Promise<GeolocationPosition> {
       },
       (err: GeolocationPositionError) => {
         reject(err);
+      },
+      {
+        enableHighAccuracy: true
       }
     );
   });
